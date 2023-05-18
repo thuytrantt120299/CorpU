@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE FitnessCenter [
+        <!ELEMENT FitnessCenter (Member)*>
+        <!ELEMENT Member (Name|Phone|FavoriteColor)*>
+        <!ATTLIST Member
+                id CDATA #REQUIRED
+                level CDATA #REQUIRED>
+        <!ELEMENT Name (#PCDATA)>
+        <!ELEMENT Phone (#PCDATA)>
+        <!ATTLIST Phone
+                type CDATA #REQUIRED>
+        <!ELEMENT FavoriteColor (#PCDATA)>
+        ]>
+<FitnessCenter>
+    <Member id="1" level="gold">
+        <Name>Jeff</Name>
+        <Phone type="home">555-1234</Phone>
+        <Phone type="work">555-4321</Phone>
+        <FavoriteColor>lightgrey</FavoriteColor>
+    </Member>
+    <Member id="2" level="gold">
+        <Name>David</Name>
+        <Phone type="home">383-1234</Phone>
+        <Phone type="work">383-4321</Phone>
+        <FavoriteColor>lightblue</FavoriteColor>
+    </Member>
+    <Member id="3" level="platinum">
+        <Name>Roger</Name>
+        <Phone type="home">888-1234</Phone>
+        <Phone type="work">888-4321</Phone>
+        <FavoriteColor>lightyellow</FavoriteColor>
+    </Member>
+</FitnessCenter>
