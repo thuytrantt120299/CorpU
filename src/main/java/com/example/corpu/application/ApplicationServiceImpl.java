@@ -6,6 +6,8 @@ import com.example.corpu.sessionalStaff.SessionalStaff;
 import com.example.corpu.sessionalStaff.SessionalStaffRepository;
 import com.example.corpu.unit.Unit;
 import com.example.corpu.unit.UnitRepository;
+import com.example.corpu.unitSessionalStaff.UnitSessionalStaff;
+import com.example.corpu.unitSessionalStaff.UnitSessionalStaffRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -28,7 +30,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     private final SessionalStaffRepository sessionalStaffRepository;
     private final UnitRepository unitRepository;
     private final ApplicationRepository applicationRepository;
-//    private final UnitSessionalStaffRepository unitSessionalStaffRepository;
+    private final UnitSessionalStaffRepository unitSessionalStaffRepository;
 
     @Override
     public List<ApplicationDTO> getAll(String keyword) {
@@ -122,13 +124,13 @@ public class ApplicationServiceImpl implements ApplicationService {
         applicationRepository.save(application);
 
         if (status == 1){
-            //SAVE unit sessional staff
-//            UnitSessionalStaff unitSessionalStaff = UnitSessionalStaff.builder()
-//                    .id(UUID.randomUUID().toString())
-//                    .sessionalStaff(application.getSessionalStaff())
-//                    .unit(application.getUnit())
-//                    .build();
-//            unitSessionalStaffRepository.save(unitSessionalStaff);
+            //Case accept -> save unit sessional staff
+            UnitSessionalStaff unitSessionalStaff = UnitSessionalStaff.builder()
+                    .id(UUID.randomUUID().toString())
+                    .sessionalStaff(application.getSessionalStaff())
+                    .unit(application.getUnit())
+                    .build();
+            unitSessionalStaffRepository.save(unitSessionalStaff);
             return "Request accept applicant successful";
         }
         if (status == 2){

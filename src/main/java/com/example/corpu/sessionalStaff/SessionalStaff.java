@@ -31,8 +31,7 @@ public class SessionalStaff {
     private String phone;
     private String rate;
     private String workingDays;
-    private Integer units;
-
+//    private Integer unitCount;
     //    @OneToMany
 //    List<UnitSessionalStaff> sessionalStaffList;
     @Type(type = "json")
