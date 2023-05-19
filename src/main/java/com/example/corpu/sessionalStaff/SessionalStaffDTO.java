@@ -12,7 +12,9 @@ import java.util.List;
 public class SessionalStaffDTO {
     private String id;
     private String email;
-    private Integer units;
+    private String firstName;
+    private String lastName;
+    private Integer unitCount;
     private String rate;
     private String workingDays;
     @JsonProperty("availability")

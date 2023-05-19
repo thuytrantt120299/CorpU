@@ -29,7 +29,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1")
 public class SessionalStaffController {
-    private static final String[] listSort = {"name"};
+    private static final String[] listSort = {"firstName", "lastName"};
 
     private final SessionalStaffService sessionalStaffService;
 

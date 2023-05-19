@@ -2,16 +2,17 @@ package com.example.corpu.sessionalStaff;
 
 import com.example.corpu.constants.ErrorConstant;
 import com.example.corpu.error.ValidationException;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Log4j2
 @Transactional
 public class SessionalStaffServiceImpl implements SessionalStaffService{
     private final SessionalStaffRepository sessionalStaffRepository;
@@ -24,14 +25,19 @@ public class SessionalStaffServiceImpl implements SessionalStaffService{
 
     @Override
     public List<SessionalStaffDTO> getAll(String keyword) {
-
-        return null;
+        log.debug("Request to get all sessional staffs");
+        List<SessionalStaff> result = sessionalStaffRepository.findAllByUnitCount();
+        List<SessionalStaffDTO> dtos = sessionalStaffMapper.toDto(result);
+        return dtos;
     }
 
     @Override
     public Page<SessionalStaffDTO> getAllPaging(String keyword, Pageable pageable) {
 
-        return null;
+        log.debug("Request to get all sesstional staffs");
+        Page<SessionalStaff> sessionalStaffs = sessionalStaffRepository.findAllByUnitCount(pageable);
+        Page<SessionalStaffDTO> result = sessionalStaffs.map(sessionalStaffMapper::toDto);
+        return result;
     }
 
 

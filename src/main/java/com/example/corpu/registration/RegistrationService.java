@@ -75,6 +75,7 @@ public class RegistrationService {
         //After enable appUse - create sessional staff
         SessionalStaff sessionalStaff = SessionalStaff.builder()
                 .id(UUID.randomUUID().toString())
+                .unitCount(0)
                 .appUser(appUser)
                 .email(appUser.getEmail())
                 .firstName(appUser.getFirstName())

@@ -122,7 +122,6 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
         application.setStatus(status);
         applicationRepository.save(application);
-
         if (status == 1){
             //Case accept -> save unit sessional staff
             UnitSessionalStaff unitSessionalStaff = UnitSessionalStaff.builder()
@@ -131,6 +130,10 @@ public class ApplicationServiceImpl implements ApplicationService {
                     .unit(application.getUnit())
                     .build();
             unitSessionalStaffRepository.save(unitSessionalStaff);
+            SessionalStaff sessionalStaff = application.getSessionalStaff();
+            Integer unitCount = sessionalStaff.getUnitCount();
+            sessionalStaff.setUnitCount(++unitCount);
+            sessionalStaffRepository.save(sessionalStaff);
             return "Request accept applicant successful";
         }
         if (status == 2){
