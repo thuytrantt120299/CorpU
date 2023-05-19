@@ -26,7 +26,7 @@ public class SessionalStaffServiceImpl implements SessionalStaffService{
     @Override
     public List<SessionalStaffDTO> getAll(String keyword) {
         log.debug("Request to get all sessional staffs");
-        List<SessionalStaff> result = sessionalStaffRepository.findAllByUnitCount();
+        List<SessionalStaff> result = sessionalStaffRepository.findAllByUnitCountList();
         List<SessionalStaffDTO> dtos = sessionalStaffMapper.toDto(result);
         return dtos;
     }
@@ -35,7 +35,7 @@ public class SessionalStaffServiceImpl implements SessionalStaffService{
     public Page<SessionalStaffDTO> getAllPaging(String keyword, Pageable pageable) {
 
         log.debug("Request to get all sesstional staffs");
-        Page<SessionalStaff> sessionalStaffs = sessionalStaffRepository.findAllByUnitCount(pageable);
+        Page<SessionalStaff> sessionalStaffs = sessionalStaffRepository.findAllByUnitCountPage(pageable);
         Page<SessionalStaffDTO> result = sessionalStaffs.map(sessionalStaffMapper::toDto);
         return result;
     }

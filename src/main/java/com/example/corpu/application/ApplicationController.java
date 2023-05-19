@@ -46,7 +46,7 @@ public class ApplicationController {
         log.debug("REST request to create application");
         applicationRequest.setId(UUID.randomUUID().toString());
         try{
-            result= applicationService.add(applicationRequest, authentication.getName());
+            result= applicationService.add(applicationRequest, staffName);
             if (Objects.isNull(result)||Objects.isNull(result.getId())){
                 return new ApiResponse<>(400, null, ValidateConstants.ERROR, ValidateConstants.ERROR_LABEL);
             }

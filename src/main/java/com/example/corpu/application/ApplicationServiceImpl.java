@@ -71,9 +71,11 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public ApplicationDTO add(ApplicationRequest applicationRequest, String sessionalStaffName) {
+        String email = sessionalStaffName;
         //check if sessional staff exist
         Optional<SessionalStaff> sessionalStaffOpt = sessionalStaffRepository.findFirstByEmail(sessionalStaffName);
-        if (!sessionalStaffOpt.isPresent()){
+
+        if (sessionalStaffOpt.isEmpty()){
             throw new ValidationException(ErrorConstant.NOT_FOUND_OBJECT, String.format(ErrorConstant.NOT_FOUND_OBJECT_LABEL,"SessionalStaff"));
         }
         //check if sessional unit exist

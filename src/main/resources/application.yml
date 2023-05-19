@@ -8,12 +8,12 @@ jwt:
 
 spring:
   datasource:
-    password: thanhthuy1999
+    password: dbpassword
     url: jdbc:mysql://localhost:3306/corpU?serverTimezone=UTC
     username: root
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect

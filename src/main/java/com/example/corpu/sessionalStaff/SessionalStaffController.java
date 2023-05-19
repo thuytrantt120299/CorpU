@@ -44,7 +44,7 @@ public class SessionalStaffController {
             @RequestParam(value = "page", required = false, defaultValue = ValidateConstants.PAGE) int page,
             @RequestParam(value = "pageSize", required = false, defaultValue = ValidateConstants.PER_PAGE) int pageSize
     ) {
-        log.debug("REST request to get a page of banner");
+        log.debug("REST request to get a page of sessional staffs");
         DataPagingResponse<SessionalStaffDTO> dataPagingResponse;
         String keywordOpt = Optional.ofNullable(keyword).orElse("");
 

@@ -1,10 +1,13 @@
 package com.example.corpu.sessionalStaff;
 import com.example.corpu.appuser.AppUser;
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +24,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@TypeDef(name = "json", typeClass = JsonType.class)
 @Table(name="sessional_staff")
 public class SessionalStaff {
     @Id
@@ -29,11 +33,10 @@ public class SessionalStaff {
     private String firstName;
     private String lastName;
     private String phone;
-    private String rate;
     private String workingDays;
+    private Integer ranking = 0;
     private Integer unitCount = 0;
-    //    @OneToMany
-//    List<UnitSessionalStaff> sessionalStaffList;
+
     @Type(type = "json")
     @Column(name = "availability", columnDefinition = "json")
     private List<String> availability;

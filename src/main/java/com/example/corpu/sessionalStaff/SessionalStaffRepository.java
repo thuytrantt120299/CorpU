@@ -11,8 +11,8 @@ import java.util.Optional;
 @Repository
 public interface SessionalStaffRepository extends JpaRepository<SessionalStaff, String>{
     Optional<SessionalStaff> findFirstByEmail(String email);
-    @Query("SELECT m FROM SessionalStaff m WHERE unitCount >= 0 ORDER BY m.firstName ASC")
-    List<SessionalStaff> findAllByUnitCount();
-    @Query("SELECT m FROM SessionalStaff m WHERE unitCount >= 0 ORDER BY m.firstName ASC")
-    Page<SessionalStaff> findAllByUnitCount(Pageable pageable);
+    @Query("SELECT m FROM SessionalStaff m WHERE unitCount > 0 ORDER BY m.firstName ASC")
+    List<SessionalStaff> findAllByUnitCountList();
+    @Query("SELECT m FROM SessionalStaff m WHERE unitCount > 0 ORDER BY m.firstName ASC")
+    Page<SessionalStaff> findAllByUnitCountPage(Pageable pageable);
 }
