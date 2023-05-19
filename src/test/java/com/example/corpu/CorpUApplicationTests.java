@@ -1,7 +1,4 @@
-package com.example.corpu;
-
-import com.example.corpu.appuser.AppUser;
-import com.example.corpu.appuser.AppUserService;
+package com.example.corpu;;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

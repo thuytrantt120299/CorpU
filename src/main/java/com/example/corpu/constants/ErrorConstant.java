@@ -11,7 +11,8 @@ public class ErrorConstant {
      * OBJECT
      */
     public static final String EXIST_OBJECT = "EXIST_OBJECT";
-
+    public static final String INVALID_FIELD = "INVALID_FIELD";
+    public static final String INVALID_FIELD_LABEL = "%s is not valid";
     /**
      * email
      */

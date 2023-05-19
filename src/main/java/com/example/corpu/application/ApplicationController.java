@@ -46,7 +46,7 @@ public class ApplicationController {
         log.debug("REST request to create application");
         applicationRequest.setId(UUID.randomUUID().toString());
         try{
-            result= applicationService.add(applicationRequest, authentication.getName());
+            result= applicationService.add(applicationRequest, staffName);
             if (Objects.isNull(result)||Objects.isNull(result.getId())){
                 return new ApiResponse<>(400, null, ValidateConstants.ERROR, ValidateConstants.ERROR_LABEL);
             }
@@ -87,41 +87,20 @@ public class ApplicationController {
         return new ApiResponse<>(200, dataPagingResponse, null, null);
     }
 
-//    @RequestMapping(value = "/banner/{uuid}", method = RequestMethod.PATCH)
-//    public ApiResponse<?> updateBanner(
-//            @PathVariable(value = "uuid", required = true)final UUID uuid,
-//            @RequestBody BannerDTO bannerDTO){
-//        log.debug("REST request to update banner: {}",bannerDTO);
-//        BannerDTO result;
-//
-//        if (!Objects.isNull(bannerDTO.getName())) {
-//            if (bannerDTO.getName().isBlank()) {
-//                return new ApiResponse<>(400, null, ErrorConstant.BLANK_FIELD_BANNER, String.format(ErrorConstant.BLANK_FIELD_LABEL, "name"));
-//            } else if (bannerDTO.getName().length() > KangarooConstants.FIELD_LENGTH_LIMIT_NORMAL) {
-//                return new ApiResponse<>(400, null, ErrorConstant.OVER_LENGTH_FIELD, String.format(ErrorConstant.OVER_LENGTH_FIELD_LABEL, "name", KangarooConstants.FIELD_LENGTH_LIMIT_NORMAL));
-//            }
-//        }
-//
-//        if (!Objects.isNull(bannerDTO.getUrlImage())
-//                && bannerDTO.getUrlImage().length() > KangarooConstants.FIELD_LENGTH_LIMIT_NORMAL) {
-//            return new ApiResponse<>(400, null, ErrorConstant.OVER_LENGTH_FIELD, String.format(ErrorConstant.OVER_LENGTH_FIELD_LABEL, "urlImage", KangarooConstants.FIELD_LENGTH_LIMIT_NORMAL));
-//        }
-//
-//
-//        bannerDTO.setId(uuid);
-//        bannerDTO.setModifiedOn(Instant.now());
-//
-//        try {
-//            bannerDTO = ValidateUtils.trimObject(bannerDTO, BannerDTO.class);
-//            result = bannerService.update(bannerDTO);
-//        } catch (ValidationException e) {
-//            return new ApiResponse<>(400, null, e.getErrorCode(), e.getErrorMessage());
-//        } catch (Exception e) {
-//            return new ApiResponse<>(400, null, ValidateConstants.ERROR, ValidateConstants.ERROR_LABEL);
-//        }
-//        return new ApiResponse<>(200, result, null, null);
-//
-//    }
-
+    @RequestMapping(value = "/application/{id}", method = RequestMethod.PATCH)
+    public ApiResponse<?> updateApplication(
+            @PathVariable(value = "id", required = true)final String id,
+            @RequestBody Integer status){
+        log.debug("REST request to update application: {}",status);
+        String result;
+        try {
+            result = applicationService.update(id, status);
+        } catch (ValidationException e) {
+            return new ApiResponse<>(400, null, e.getErrorCode(), e.getErrorMessage());
+        } catch (Exception e) {
+            return new ApiResponse<>(400, null, ValidateConstants.ERROR, ValidateConstants.ERROR_LABEL);
+        }
+        return new ApiResponse<>(200, result, null, null);
+    }
 
 }
