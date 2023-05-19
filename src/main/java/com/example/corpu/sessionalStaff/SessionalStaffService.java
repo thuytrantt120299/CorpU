@@ -24,7 +24,7 @@ public interface SessionalStaffService {
      * @param sessionalStaffDTO the list entity to save.
      * @return the persisted entity.
      */
-//    SessionalStaffDTO update(SessionalStaffDTO sessionalStaffDTO);
+    SessionalStaffDTO update(SessionalStaffDTO sessionalStaffDTO);
 
 
 

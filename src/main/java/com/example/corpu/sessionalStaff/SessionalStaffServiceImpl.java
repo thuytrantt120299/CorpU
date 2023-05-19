@@ -1,5 +1,7 @@
 package com.example.corpu.sessionalStaff;
 
+import com.example.corpu.constants.ErrorConstant;
+import com.example.corpu.error.ValidationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -32,27 +34,23 @@ public class SessionalStaffServiceImpl implements SessionalStaffService{
     }
 
 
-//    @Override
-//    public SessionalStaffDTO update(SessionalStaffDTO sessionalStaffDTO) {
-//        Optional<SessionalStaff> currentSessionalStaffOpt = sessionalStaffRepository.findFirstByEmail(sessionalStaffDTO.getEmail());
-//
-//        SessionalStaff sessionalStaff = null;
-//        //Case create
-//        if (currentSessionalStaffOpt.isEmpty()){
-//            sessionalStaff = sessionalStaffMapper.toEntity(sessionalStaffDTO);
-//        }else{
-//            //case update
-//            sessionalStaff = currentSessionalStaffOpt.get();
-//            if (!Objects.isNull(sessionalStaffDTO.getAvailability())){
-//                sessionalStaff.setAvailability(sessionalStaffDTO.getAvailability());
-//            }
-////            if(!Objects.isNull(sessionalStaffDTO.getHourlyRate())){
-////                sessionalStaff.setHourlyRate(sessionalStaffDTO.getHourlyRate());
-////            }
-//        }
-//        SessionalStaff result = sessionalStaffRepository.save(sessionalStaff);
-//
-//        return sessionalStaffMapper.toDto(result);
-//    }
+    @Override
+    public SessionalStaffDTO update(SessionalStaffDTO sessionalStaffDTO) {
+        Optional<SessionalStaff> sessionalStaffOpt = sessionalStaffRepository.findFirstByEmail(sessionalStaffDTO.getEmail());
+
+        if (sessionalStaffOpt.isEmpty()){
+            throw new ValidationException(ErrorConstant.NOT_FOUND_OBJECT, String.format(ErrorConstant.NOT_FOUND_OBJECT_LABEL,"SessionalStaff"));
+        }
+        SessionalStaff sessionalStaff = sessionalStaffOpt.get();
+
+        if (!Objects.isNull(sessionalStaffDTO.getAvailability())){
+            sessionalStaff.setAvailability(sessionalStaffDTO.getAvailability());
+        }
+        if (!Objects.isNull(sessionalStaffDTO.getPreference())){
+            sessionalStaff.setPreference(sessionalStaffDTO.getPreference());
+        }
+        SessionalStaff result = sessionalStaffRepository.save(sessionalStaff);
+        return sessionalStaffMapper.toDto(result);
+    }
 
 }

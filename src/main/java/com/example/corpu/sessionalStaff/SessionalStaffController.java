@@ -38,7 +38,7 @@ public class SessionalStaffController {
         this.sessionalStaffService = sessionalStaffService;
     }
 
-    @RequestMapping(value="/sessional_staffs", method = RequestMethod.GET)
+    @RequestMapping(value="/sessionalStaffs", method = RequestMethod.GET)
     public ApiResponse<?> getListSessionalStaff(
             @RequestParam(value = "keyword", required = false) String keyword,
             @RequestParam(value = "page", required = false, defaultValue = ValidateConstants.PAGE) int page,
@@ -69,24 +69,20 @@ public class SessionalStaffController {
         return new ApiResponse<>(200, dataPagingResponse, null, null);
     }
 
-
-//    @RequestMapping(value = "/sessional_staff", method = RequestMethod.PATCH)
-//    public ApiResponse<?> updateSessionalStaff(
-//            Authentication authentication,
-//            @RequestBody SessionalStaffDTO sessionalStaffDTO){
-//        log.debug("REST request to update sessional staff: {}",sessionalStaffDTO);
-//        SessionalStaffDTO result;
-//        sessionalStaffDTO.setId(UUID.randomUUID().toString());
-//        sessionalStaffDTO.setEmail(authentication.getName());
-//        try {
-//            sessionalStaffDTO = ValidateUtils.trimObject(sessionalStaffDTO, SessionalStaffDTO.class);
-//            result = sessionalStaffService.update(sessionalStaffDTO);
-//        } catch (ValidationException e) {
-//            return new ApiResponse<>(400, null, e.getErrorCode(), e.getErrorMessage());
-//        } catch (Exception e) {
-//            return new ApiResponse<>(400, null, ValidateConstants.ERROR, ValidateConstants.ERROR_LABEL);
-//        }
-//        return new ApiResponse<>(200, result, null, null);
-//
-//    }
+    @RequestMapping(value = "/sessionalStaff", method = RequestMethod.PATCH)
+    public ApiResponse<?> updateSessionalStaff(
+            Authentication authentication,
+            @RequestBody SessionalStaffDTO sessionalStaffDTO){
+        log.debug("REST request to update sessional staff: {}",sessionalStaffDTO);
+        SessionalStaffDTO result;
+        sessionalStaffDTO.setEmail(authentication.getName());
+        try {
+            result = sessionalStaffService.update(sessionalStaffDTO);
+        } catch (ValidationException e) {
+            return new ApiResponse<>(400, null, e.getErrorCode(), e.getErrorMessage());
+        } catch (Exception e) {
+            return new ApiResponse<>(400, null, ValidateConstants.ERROR, ValidateConstants.ERROR_LABEL);
+        }
+        return new ApiResponse<>(200, result, null, null);
+    }
 }

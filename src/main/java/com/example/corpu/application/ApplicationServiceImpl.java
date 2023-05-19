@@ -5,7 +5,6 @@ import com.example.corpu.error.ValidationException;
 import com.example.corpu.sessionalStaff.SessionalStaff;
 import com.example.corpu.sessionalStaff.SessionalStaffRepository;
 import com.example.corpu.unit.Unit;
-import com.example.corpu.unit.UnitDTO;
 import com.example.corpu.unit.UnitRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -15,9 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,6 +28,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     private final SessionalStaffRepository sessionalStaffRepository;
     private final UnitRepository unitRepository;
     private final ApplicationRepository applicationRepository;
+//    private final UnitSessionalStaffRepository unitSessionalStaffRepository;
 
     @Override
     public List<ApplicationDTO> getAll(String keyword) {
@@ -41,7 +41,7 @@ public class ApplicationServiceImpl implements ApplicationService {
                         .applicationName(a.getSessionalStaff().getFirstName().concat(" " + a.getSessionalStaff().getLastName()))
                         .availability(a.getSessionalStaff().getAvailability())
                         .unitName(a.getUnitName())
-                        .preferences(a.getSessionalStaff().getPreferences())
+                        .preferences(a.getSessionalStaff().getPreference())
                         .phone(a.getSessionalStaff().getPhone())
                         .email(a.getSessionalStaff().getEmail())
                         .build())
@@ -59,7 +59,7 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .applicationName(a.getSessionalStaff().getFirstName().concat(" " + a.getSessionalStaff().getLastName()))
                 .availability(a.getSessionalStaff().getAvailability())
                 .unitName(a.getUnitName())
-                .preferences(a.getSessionalStaff().getPreferences())
+                .preferences(a.getSessionalStaff().getPreference())
                 .phone(a.getSessionalStaff().getPhone())
                 .email(a.getSessionalStaff().getEmail())
                 .build());
@@ -84,7 +84,6 @@ public class ApplicationServiceImpl implements ApplicationService {
         if (applicationOpt.isPresent()){
             throw new ValidationException(ErrorConstant.EXIST_OBJECT, String.format(ErrorConstant.EXISTED_OBJECT_LABEL,"Application"));
         }
-
         Application application = Application.builder()
                 .id(applicationRequest.getId())
                 .sessionalStaff(sessionalStaffOpt.get())
@@ -102,15 +101,41 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .applicationName(result.getSessionalStaff().getFirstName().concat(" " + result.getSessionalStaff().getLastName()))
                 .availability(result.getSessionalStaff().getAvailability())
                 .unitName(result.getUnit().getName())
-                .preferences(result.getSessionalStaff().getPreferences())
+                .preferences(result.getSessionalStaff().getPreference())
                 .phone(result.getSessionalStaff().getPhone())
                 .email(result.getSessionalStaff().getEmail())
                 .build();
     }
 
     @Override
-    public ApplicationDTO update(ApplicationDTO applicationDTO) {
-        return null;
+    public String update(String id, Integer status) {
+
+        Optional<Application> applicationOpt = applicationRepository.findById(id);
+        if (applicationOpt.isEmpty()){
+            throw new ValidationException(ErrorConstant.NOT_FOUND_OBJECT, String.format(ErrorConstant.NOT_FOUND_OBJECT_LABEL,"Application"));
+        }
+        Application application = applicationOpt.get();
+        if (status != 1 && status != 2){
+            throw new ValidationException(ErrorConstant.INVALID_FIELD, String.format(ErrorConstant.INVALID_FIELD_LABEL,"Status"));
+        }
+        application.setStatus(status);
+        applicationRepository.save(application);
+
+        if (status == 1){
+            //SAVE unit sessional staff
+//            UnitSessionalStaff unitSessionalStaff = UnitSessionalStaff.builder()
+//                    .id(UUID.randomUUID().toString())
+//                    .sessionalStaff(application.getSessionalStaff())
+//                    .unit(application.getUnit())
+//                    .build();
+//            unitSessionalStaffRepository.save(unitSessionalStaff);
+            return "Request accept applicant successful";
+        }
+        if (status == 2){
+            return "Request reject applicant successful";
+
+        }
+        return "Unable to update the application";
     }
 
     @Override

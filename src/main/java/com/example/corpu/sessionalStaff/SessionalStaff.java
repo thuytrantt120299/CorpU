@@ -29,8 +29,11 @@ public class SessionalStaff {
     private String firstName;
     private String lastName;
     private String phone;
-//    private String hourlyRate;
-//    @OneToMany
+    private String rate;
+    private String workingDays;
+    private Integer units;
+
+    //    @OneToMany
 //    List<UnitSessionalStaff> sessionalStaffList;
     @Type(type = "json")
     @Column(name = "availability", columnDefinition = "json")
@@ -41,6 +44,6 @@ public class SessionalStaff {
     AppUser appUser;
 
     @Type(type = "json")
-    @Column(name = "preferences", columnDefinition = "json")
-    private List<String> preferences;
+    @Column(name = "preference", columnDefinition = "json")
+    private List<String> preference;
 }

@@ -20,6 +20,6 @@ public class Unit {
     @Column(name="number_of_students")
     private Integer numStudents;
     @ManyToOne
-    @JoinColumn(name = "permanent_staff_id", insertable = false, updatable = false)
+    @JoinColumn(name = "permanent_staff_id", updatable = false)
     private PermanentStaff permanentStaff;
 }

@@ -11,6 +11,6 @@ public interface ApplicationService {
     List<ApplicationDTO> getAll(String keyword);
     Page<ApplicationDTO> getAllPaging(String keyword, Pageable pageable);
     ApplicationDTO add(ApplicationRequest applicationRequest, String sessionalStaffName);
-    ApplicationDTO update(ApplicationDTO applicationDTO);
+    String update(String id, Integer status);
     boolean delete(String id);
 }

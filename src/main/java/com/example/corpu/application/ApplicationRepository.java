@@ -17,10 +17,10 @@ public interface ApplicationRepository extends JpaRepository<Application, String
 
     Optional<Application> findFirstBySessionalStaffAndUnit(SessionalStaff sessionalStaff, Unit unit);
 
-    @Query("SELECT m FROM Application m WHERE status = 0 AND lower(m.applicantEmail) LIKE %:keyword% OR " +
-            "lower(m.unitName) LIKE %:keyword% ORDER BY m.applicationDate ASC")
+    @Query("SELECT m FROM Application m WHERE status = 0 AND (lower(m.applicantEmail) LIKE %:keyword% OR " +
+            "lower(m.unitName) LIKE %:keyword%) ORDER BY m.applicationDate ASC")
     List<Application> getApplications(@Param("keyword") String keyword);
-    @Query("SELECT m FROM Application m WHERE status = 0 AND lower(m.applicantEmail) LIKE %:keyword% OR " +
-            "lower(m.unitName) LIKE %:keyword% ORDER BY m.applicationDate ASC")
+    @Query("SELECT m FROM Application m WHERE status = 0 AND (lower(m.applicantEmail) LIKE %:keyword% OR " +
+            "lower(m.unitName) LIKE %:keyword%) ORDER BY m.applicationDate ASC")
     Page<Application> getApplications(@Param("keyword") String keyword, Pageable pageable);
 }
