@@ -92,6 +92,7 @@ import com.example.corpu.appuser.AppUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -123,6 +124,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/api/v*/login/**")
                 .permitAll()
+                .antMatchers(HttpMethod.POST,"/api/v1/application/**").hasAuthority("USER")
+                .antMatchers(HttpMethod.PATCH,"/api/v1/sessionalStaff/**").hasAuthority("USER")
+                .antMatchers("/api/v1/units/**").hasAnyAuthority("USER","ADMIN")
+                .antMatchers(HttpMethod.PATCH,"/api/v1/application/**").hasAuthority("ADMIN")
+                .antMatchers("/api/v1/applications/**").hasAuthority("ADMIN")
+                .antMatchers("/api/v1/sessionalStaffs/**").hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated().and()
                 .formLogin()
