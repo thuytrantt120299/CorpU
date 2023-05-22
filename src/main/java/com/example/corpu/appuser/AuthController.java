@@ -41,12 +41,13 @@ public class AuthController {
         // Generate JWT token
         UserDetails userDetails = appUserService.loadUserByUsername(loginRequest.getUsername());
         String token = jwtTokenUtil.generateToken(userDetails.getUsername());
-
         // Create the response object
         // Add any other relevant information to the response object
+        String userRole = userDetails.getAuthorities().toString().replace("[", "").replace("]", "");;
 
+        LoginResponse loginResponse = new LoginResponse(token, userRole);
         // Return the response with the token
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(loginResponse);
     }
 
         @PostMapping("/api/v1/logout")
