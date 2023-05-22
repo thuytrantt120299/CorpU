@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 public class AuthController {
     private final AuthenticationManager authenticationManager;
@@ -44,4 +48,30 @@ public class AuthController {
         // Return the response with the token
         return ResponseEntity.ok(token);
     }
-}
+
+        @PostMapping("/api/v1/logout")
+        public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response) {
+            // Invalidate user session or perform logout operations
+
+            // Clear any session-related information
+            request.getSession().invalidate();
+
+            // Clear any authentication-related information
+            SecurityContextHolder.clearContext();
+
+            // Optionally, you can remove any cookies related to the session
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("JSESSIONID")) {
+                        cookie.setMaxAge(0);
+                        response.addCookie(cookie);
+                        break;
+                    }
+                }
+            }
+            // Return a success message
+            return ResponseEntity.ok("Logout successful");
+        }
+    }
+
