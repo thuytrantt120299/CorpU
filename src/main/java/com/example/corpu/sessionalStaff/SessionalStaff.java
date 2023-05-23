@@ -48,4 +48,8 @@ public class SessionalStaff {
     @Type(type = "json")
     @Column(name = "preference", columnDefinition = "json")
     private List<String> preference;
+
+    @Type(type = "json")
+    @Column(name = "qualification", columnDefinition = "json")
+    private List<String> qualification;
 }

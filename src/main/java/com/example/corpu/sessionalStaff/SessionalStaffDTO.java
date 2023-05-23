@@ -25,4 +25,6 @@ public class SessionalStaffDTO implements Serializable {
     private List<String> availability;
     @JsonProperty("preference")
     private List<String> preference;
+    @JsonProperty("qualification")
+    private List<String> qualification;
 }
