@@ -21,6 +21,7 @@ import java.util.UUID;
 
 @Log4j2
 @RestController
+@CrossOrigin(origins = "http://localhost:3000",allowCredentials = "true")
 @RequestMapping("/api/v1")
 public class UnitController {
 
