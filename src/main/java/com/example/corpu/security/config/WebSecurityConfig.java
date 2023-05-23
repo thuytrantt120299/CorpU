@@ -133,7 +133,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated().and()
                 .formLogin()
-                .disable()
+                .and()
                 .logout()
                 .logoutUrl("/api/v1/logout") // Specify the URL for the logout endpoint
                 .logoutSuccessHandler(logoutSuccessHandler()); // Specify the logout success handler
