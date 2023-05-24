@@ -7,11 +7,9 @@ import com.example.corpu.response.ApiResponse;
 import com.example.corpu.response.DataPagingResponse;
 import com.example.corpu.utils.ValidateUtils;
 import lombok.extern.log4j.Log4j2;
-import org.aspectj.apache.bcel.classfile.Constant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

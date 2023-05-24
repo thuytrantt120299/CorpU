@@ -59,6 +59,9 @@ public class SessionalStaffServiceImpl implements SessionalStaffService{
         if (!Objects.isNull(sessionalStaffDTO.getQualification())){
             sessionalStaff.setQualification(sessionalStaffDTO.getQualification());
         }
+        if (!Objects.isNull(sessionalStaffDTO.getPhone())){
+            sessionalStaff.setPhone(sessionalStaffDTO.getPhone());
+        }
         SessionalStaff result = sessionalStaffRepository.save(sessionalStaff);
         return sessionalStaffMapper.toDto(result);
     }

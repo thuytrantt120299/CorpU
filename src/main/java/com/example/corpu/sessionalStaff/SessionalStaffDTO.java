@@ -20,6 +20,7 @@ public class SessionalStaffDTO implements Serializable {
     private String lastName;
     private Integer unitCount;
     private Integer ranking;
+    private String phone;
     private String workingDays;
     @JsonProperty("availability")
     private List<String> availability;
